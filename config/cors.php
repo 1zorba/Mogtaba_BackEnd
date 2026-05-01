@@ -30,4 +30,13 @@ return [
 
     'supports_credentials' => false,
     'allowed_origins' => ['*'],
+
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'allowed_methods' => ['*'],
+    'allowed_origins' => ['*'], // هذا السطر هو الأهم لحل المشكلة فوراً
+    'allowed_origins_patterns' => [],
+    'allowed_headers' => ['*'],
+    'exposed_headers' => [],
+    'max_age' => 0,
+    'supports_credentials' => true,
 ];
