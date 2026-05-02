@@ -1,35 +1,17 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cross-Origin Resource Sharing (CORS) Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure your settings for cross-origin resource sharing
-    | or "CORS". This determines what cross-origin operations may execute
-    | in web browsers. You are free to adjust these settings as needed.
-    |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-    |
-    */
-    // ي مسار يبدأ بكلمة api (مثل مسار المهام عندك) سيخضع لقوانين هذا الملف. (صحيح ✅)
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
-    //  تسمح بجميع أنواع الطلبات (GET, POST, PUT, DELETE).
     'allowed_methods' => ['*'],
-    // تعني أنك تسمح لأي موقع في العالم (بما في ذلك تطبيق ريأكت الخاص بك) بالوصول للـ API. (صحيح للتطوير ✅، لكنه خطر في المواقع الحقيقية ⚠️).    'allowed_origins' => ['*'],
-
+    // هنا نضع الروابط المحددة فقط ونحذف النجمة نهائياً
+    'allowed_origins' => [
+        'https://mogtaba-front-end.vercel.app',
+        'https://mogtaba-front-end-git-main-1102mohammed-8454s-projects.vercel.app', // الرابط الذي يظهر في الخطأ عندك
+        'http://localhost:5173', // للتطوير المحلي
+    ],
     'allowed_origins_patterns' => [],
-
     'allowed_headers' => ['*'],
-
     'exposed_headers' => [],
-
     'max_age' => 0,
-
-    'supports_credentials' => true,
-    'allowed_origins' => ['*'],
-
-   
+    'supports_credentials' => true, // ضرورية لأنك تستخدم Sanctum
 ];
