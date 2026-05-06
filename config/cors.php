@@ -5,7 +5,7 @@ return [
     'allowed_methods' => ['*'],
     // هنا نضع الروابط المحددة فقط ونحذف النجمة نهائياً
     'allowed_origins' => [
-        'https://mogtaba-front-end.vercel.app',
+        'https://mogtaba-front-end.vercel.app/',
         'https://mogtaba-front-end-git-main-1102mohammed-8454s-projects.vercel.app', // الرابط الذي يظهر في الخطأ عندك
         'http://localhost:5173', // للتطوير المحلي
     ],
