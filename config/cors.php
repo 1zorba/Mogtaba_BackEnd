@@ -10,7 +10,7 @@ return [
         // 'http://localhost:5173', 
         // للتطوير المحلي
         'allowed_origins' => ['*'],
-        'https://mogtab.netlify.app',
+        'allowed_origins' => ['https://mogtab.netlify.app'], // تأكد من عدم وجود / في النهاية
     ],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
