@@ -40,4 +40,5 @@ EXPOSE 80
 
 # السطر الذهبي: تنفيذ التهجير، زرع البيانات، وتشغيل السيرفر
 # تم استخدام --force لأننا في وضع الإنتاج (Production)
-CMD php artisan migrate --force --seed && php artisan storage:link && apache2-foreground
+ # تأكد من استخدام هذا التنسيق لضمان استمرار تشغيل الحاوية
+ENTRYPOINT ["/bin/sh", "-c", "php artisan migrate --force --seed && php artisan storage:link && apache2-foreground"]
