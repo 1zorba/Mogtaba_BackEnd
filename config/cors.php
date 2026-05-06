@@ -7,8 +7,11 @@ return [
 
     // ركز هنا: تأكد أنها مصفوفة تحتوي على نصوص
     'allowed_origins' => [
-        'https://mogtab.netlify.app',
-        'https://mogtaba-front-end-1102mohammed-8454s-projects.vercel.app'
+        // خطأ
+        'allowed_origins' => 'https://mogtab.netlify.app',
+
+        // صح
+        'allowed_origins' => ['https://mogtab.netlify.app'],
     ],
 
     'allowed_origins_patterns' => [],
