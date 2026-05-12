@@ -18,8 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'created_at' => $this->created_at->format('Y-M-D'),
-            'profile' => new profileResource($this->whenLoaded('profile')),
+            'created_at' => $this->created_at->format('Y-m-d'), // حروف صغيرة للتاريخ الرقمي            'profile' => new profileResource($this->whenLoaded('profile')),
             'projects' => projectsResource::collection($this->whenLoaded('projects')),
             'services' => servicesResource::collection($this->whenLoaded('services')),
             // if we get all  users with profiles
