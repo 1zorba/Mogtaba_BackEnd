@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('profiles', function (Blueprint $table) {
-            // إضافة العمود من نوع json ويسمح بـ null لتجنب المشاكل مع البيانات القديمة
-            $table->string('social_links2')->change();
+            // نستخدم string() أو json() مباشرة بدون دالة change
+            $table->string('social_links2')->nullable()->after('social_links');
         });
     }
 
