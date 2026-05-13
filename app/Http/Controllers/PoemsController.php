@@ -97,12 +97,15 @@ class PoemsController extends Controller
 
         $data = $request->validated();
         if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($poem->image); // حذف القديمة
+
             // التخزين الفعلي ونقل     من tmp إلى المجلد الدائم
             $path = $request->file('image')->store('poems_covers', 'public');
             $data['image'] = $path; // هنا نخزن المسار الجديد "poems_covers/name.jpg"
         } else {
             unset($data['image']);
         }
+
 
         $poem->update($data);
 
