@@ -63,8 +63,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(services::class);
     }
-    public function Poems()
+    public function poems()
     {
-        return $this->hasMany(poems::class);
+        return $this->hasMany(Poem::class);
     }
 }
