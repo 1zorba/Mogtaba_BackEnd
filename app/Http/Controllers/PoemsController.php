@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\poemRequest;
+use App\Models\Poem;
 use App\Models\poems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class PoemsController extends Controller
                 $path = $request->file('image')->store('poems_covers', 'public');
             }
 
-            $poem = Poems::create([
+            $poem = Poem::create([
                 'user_id'      => auth()->id(), // تأكد أن التوكين مرسل بشكل صحيح
                 'poem_title'   => $request->poem_title,
                 'poem_content' => $request->poem_content,
@@ -44,7 +45,7 @@ class PoemsController extends Controller
     public function index()
     {
         // جلب القصائد الخاصة بالمستخدم الحالي فقط وترتيبها من الأحدث
-        $poems = Poems::where('user_id', auth()->id())
+        $poems = Poem::where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -57,7 +58,7 @@ class PoemsController extends Controller
     public function destroy($id)
     {
         $user_id = Auth::user()->id;
-        $poem = poems::where('user_id', $user_id)->where('id', $id)->first();
+        $poem = Poem::where('user_id', $user_id)->where('id', $id)->first();
 
         if ($poem) {
             if ($poem->image) {
@@ -78,7 +79,7 @@ class PoemsController extends Controller
 
     public function show()
     {
-        $poems = poems::all();
+        $poems = Poem::all();
         return response()->json(['message' => $poems]);
     }
 
@@ -88,7 +89,7 @@ class PoemsController extends Controller
     public function UpdatePoem(poemRequest $request, $id)
     {
         $user_id = Auth::user()->id;
-        $poem = poems::where('user_id', $user_id)->where('id', $id)->first();
+        $poem = Poem::where('user_id', $user_id)->where('id', $id)->first();
 
         if (!$poem) {
             return response()->json(['message' => 'القصيدة غير موجودة'], 404);
