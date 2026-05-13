@@ -44,13 +44,13 @@ class UserController extends Controller
     public function getUserByResource()
     {
         $user_id = Auth::user()->id;
-        $userData = User::with('profile')->with('projects')->with('services')->with('poems')->find($user_id);
+        $userData = User::with('profile')->with('projects')->with('services')->with('Poems')->find($user_id);
         return new UserResource($userData);
     }
     public function getMyInfo()
     {
-        
-         $userData = User::with('profile')->with('projects')->with('services')->first();
+
+        $userData = User::with('profile')->with('projects')->with('services')->first();
         return new UserResource($userData);
     }
 }
