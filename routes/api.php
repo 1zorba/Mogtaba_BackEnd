@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
@@ -44,3 +45,13 @@ Route::get('showPoems', [PoemsController::class, 'show']);
 Route::post('sendMessage', [ContactController::class, 'sendMessage']);
 Route::get('getMessages', [ContactController::class, 'getMessages']);
 Route::delete('Delete/{id}', [ContactController::class, 'Delete']);
+Route::get('/create-admin', function() {
+    $user = \App\Models\User::updateOrCreate(
+        ['email' => 'mohamedelmojtabaatta@gmail.com'],
+        [
+            'name' => 'Mujtaba Manan',
+            'password' => Hash::make('603121')
+        ]
+    );
+    return response()->json(['status' => 'success', 'user' => $user]);
+});
