@@ -8,6 +8,7 @@ return [
     // ضع هنا رابط موقعك على Netlify بدقة
     'allowed_origins' => [
         'https://mogtab.netlify.app',
+        'https://mogtaba.vercel.app',
         'http://localhost:5173', // للسماح بالتجربة المحلية أيضاً
     ],
 
