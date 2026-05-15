@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PoemsController extends Controller
 {
-    public function store(Request $request)
+    public function store(poemRequest $request)
     {
         // أضف try-catch لكي نعرف ما هو الخطأ الحقيقي لو فشل
         try {
@@ -28,7 +28,7 @@ class PoemsController extends Controller
 
             return response()->json(['message' => 'تم بنجاح', 'data' => $poem], 201);
         } catch (\Exception $e) {
-             return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
