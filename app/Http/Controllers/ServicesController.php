@@ -12,21 +12,11 @@ class ServicesController extends Controller
 {
     public function create_service(services $request) // استخدم Request العادي للتجربة أولاً
     {
-        $user_id = Auth::user()->id;
+        Auth::user()->id;
+        $validateData = $request->validated();
 
-        $service_title = $request->input('service_title');
-        $imagePath = null;
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('image_services', 'public');
-        }
-
-        $service = modelServices::create([
-            'service_title' => $service_title,
-            'image'         => $imagePath, // سيتم حفظ المسار مثل: image_services/abc.jpg
-            'user_id'       => $user_id
-        ]);
-
+        $validateData['user_id'] = Auth::user()->id;;
+        $service = services::create($validateData);
         return response()->json(["message" => 'success created', "data" => $service], 201);
     }
 
@@ -47,18 +37,11 @@ class ServicesController extends Controller
         // جلب البيانات المفلترة من الـ Request
         $data = $request->validated();
 
-        // معالجة رفع الصورة الجديدة إذا وُجدت
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('image_services', 'public');
-            $data['image'] = $path;
-        }
+
 
         $user_service->update($data);
 
-        return response()->json([
-            "message" => "success updated",
-            "data" => $user_service
-        ]);
+        return response()->json(['message' => $user_service]);
     }
 
     public function getAllServices()
@@ -74,18 +57,11 @@ class ServicesController extends Controller
         // البحث عن الخدمة والتأكد أنها تخص المستخدم
         $service = modelServices::where('user_id', $user_id)->where('id', $id)->first();
 
-        if ($service) {
-            // حذف الصورة من التخزين إذا كانت موجودة
-            if ($service->image && Storage::disk('public')->exists($service->image)) {
-                Storage::disk('public')->delete($service->image);
-            }
 
-            // حذف السجل من قاعدة البيانات
-            $service->delete();
 
-            return response()->json(['message' => 'تم الحذف بنجاح'], 200);
-        }
+        // حذف السجل من قاعدة البيانات
+        $service->delete();
 
-        return response()->json(['message' => 'الخدمة غير موجودة'], 404);
+        return response()->json(['message' => 'تم حذف الخدمة بنجاح!']);
     }
 }

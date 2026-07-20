@@ -47,6 +47,17 @@ class PoemsController extends Controller
         ]);
     }
 
+    //  public function index()
+    // {
+
+    //     $poems = Poem::latest()->get();
+
+
+    //     return view('poems.index',
+    //     compact('poems'));
+
+    // }
+
     public function destroy($id)
     {
         $user_id = Auth::user()->id;
@@ -72,7 +83,7 @@ class PoemsController extends Controller
     public function show()
     {
         $poems = Poem::all();
-        return response()->json(['message' => $poems]);
+        return view('components.poems', compact('poems'));
     }
 
 

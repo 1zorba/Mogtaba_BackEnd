@@ -22,9 +22,10 @@ class poemRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'poem_title' => 'required|string',
-            'poem_content' => 'text|required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'poem_content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:255',
             'poem_link' => 'nullable|string',
 
         ];

@@ -26,12 +26,13 @@ class ProjectsController extends Controller
     }
 
 
-
+    
     public function showAllProjects()
     {
-        $allProjects = projects::all();
-        return response()->json($allProjects);
+        $allProjects = projects::get();
+        return view('compo', compact('allProjects'));
     }
+
     public function UpdateProject(UpadetProject $request, $id)
     {
         $user_id = Auth::user()->id;
@@ -56,18 +57,29 @@ class ProjectsController extends Controller
     }
 
 
-public function DeleteProject($id) {
-    $user_id = Auth::user()->id;
-    $project = projects::where('user_id', $user_id)->where('id', $id)->first();
+    public function DeleteProject($id)
+    {
+        $user_id = Auth::user()->id;
+        $project = projects::where('user_id', $user_id)->where('id', $id)->first();
 
-    if ($project) {
-         if ($project->image_url) {
-            Storage::disk('public')->delete($project->image_url);
+        if ($project) {
+            if ($project->image_url) {
+                Storage::disk('public')->delete($project->image_url);
+            }
+
+            $project->delete();
+            return response()->json(['message' => 'تم الحذف بنجاح']);
         }
-        
-        $project->delete();
-        return response()->json(['message' => 'تم الحذف بنجاح']);
+
+        return response()->json(['message' => 'المشروع غير موجود'], 404);
     }
 
-    return response()->json(['message' => 'المشروع غير موجود'], 404);
-}}
+
+    public function manageProjectsPage()
+    {
+        // جلب مشاريع المستخدم الحالي فقط لحمايتها وتسهيل إدارتها
+        $myProjects = projects::where('user_id', Auth::id())->get();
+
+        return view('dashboard.projects.manage', compact('myProjects'));
+    }
+}

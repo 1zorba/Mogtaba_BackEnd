@@ -23,7 +23,7 @@ class services extends FormRequest
     {
         return [
             "service_title" => "required|string",
-            "image" => "nullable|image|mimes:png,jpg,jpeg,jif|max:255"
+            "description" => "nullable",
         ];
     }
 }

@@ -18,15 +18,18 @@ class ContactController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email',
                 'contentMessage' => 'required|string',
+                'subjects' => 'subjects|string',
             ]
         );
         $createMess = contact::create([
             'name' => $request->name,
             'email' => $request->email,
             'contentMessage' => $request->contentMessage,
+            'subjects' => $request->subjects,
         ]);
-        return response()->json($createMess);
+        return response()->json(['message' => 'success'], 200);
     }
+
 
     public function getMessages()
     {
@@ -36,7 +39,7 @@ class ContactController extends Controller
 
     public function Delete(int $id)
     {
-       
+
         $mess = contact::where('id', $id);
         $mess->delete();
         return response()->json(['message' => 'Delete successfully'], 200);

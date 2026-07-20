@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +23,7 @@ Route::get('getMyInfo', [UserController::class, 'getMyInfo']);
 Route::get('showAllProjects', [ProjectsController::class, 'showAllProjects']);
 Route::get('showPoems', [PoemsController::class, 'show']); // مسار الهيرو العام للقصائد
 Route::post('sendMessage', [ContactController::class, 'sendMessage']);
+    Route::get('getUser', [UserController::class, 'getUser']); // مسار الهيرو العام للقصائد
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
     Route::get('getUserByResource', [UserController::class, 'getUserByResource']);
 
     // إدارة المشاريع (Projects)
@@ -71,7 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::get('/create-admin', function () {
-    $user = \App\Models\User::updateOrCreate(
+    $user = User::updateOrCreate(
         ['email' => 'mohamedelmojtabaatta@gmail.com'],
         [
             'name' => 'Mujtaba Manan',
